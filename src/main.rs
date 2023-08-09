@@ -5,6 +5,7 @@ fn main() -> Result<(), eframe::Error> {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
     let options = eframe::NativeOptions {
         initial_window_size: Some(egui::vec2(320.0, 240.0)),
+        icon_data : Some(load_icon()),
         ..Default::default()
     };
     eframe::run_native(
@@ -54,4 +55,22 @@ impl eframe::App for MyApp {
             });
         });
     }
+}
+
+fn load_icon() -> eframe::IconData {
+	let (icon_rgba, icon_width, icon_height) = {
+		let icon = include_bytes!("../startrek.png");
+		let image = image::load_from_memory(icon)
+			.expect("Failed to open icon path")
+			.into_rgba8();
+		let (width, height) = image.dimensions();
+		let rgba = image.into_raw();
+		(rgba, width, height)
+	};
+	
+	eframe::IconData {
+		rgba: icon_rgba,
+		width: icon_width,
+		height: icon_height,
+	}
 }

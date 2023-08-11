@@ -1,11 +1,14 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 use eframe::egui;
 use egui::{Visuals, Style};
+use rand_gen::*;
+
+pub mod rand_gen;
 
 fn main() -> Result<(), eframe::Error> {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
     let options = eframe::NativeOptions {
-        initial_window_size: Some(egui::vec2(320.0, 240.0)),
+        initial_window_size: Some(egui::vec2(800.0, 600.0)),
         icon_data : Some(load_icon()),
         ..Default::default()
     };
@@ -18,52 +21,78 @@ fn main() -> Result<(), eframe::Error> {
                 ..Style::default()
             };
             cc.egui_ctx.set_style(style);
-            Box::<MyApp>::default()
+            cc.egui_ctx.set_pixels_per_point(1.5);
+            Box::<Options>::default()
         }),
     )
 }
 
-struct MyApp {
-    button1: bool,
-    button2: bool,
-    button3: bool,
-    episode: String,
-}
-
-impl Default for MyApp {
-    fn default() -> Self {
-        Self {
-            button1: false,
-            button2: false,
-            button3: false,
-            episode: "No Episode Picked".to_string()
-        }
-    }
-}
-
-impl eframe::App for MyApp {
+impl eframe::App for Options {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("Jimmy's Star Trek Picker");
             ui.hyperlink_to("My GitHub", "https://github.com/LordGoatius");
-            ui.columns(2, |columns| {
-                columns[0].checkbox(&mut self.button1, "Button 1");
-                columns[0].checkbox(&mut self.button2, "Button 2");
-                columns[0].checkbox(&mut self.button3, "Button 3");
-                if self.button3 {
-                    columns[0].checkbox(&mut self.button3, "Congrats, you found the hidden button");
+            ui.columns(3, |columns| {
+                columns[0].label("TV Shows");
+                columns[0].checkbox(&mut self.tos, "The Original Series");
+                columns[0].checkbox(&mut self.tas, "The Animated Series");
+                columns[0].checkbox(&mut self.tng, "The Next Generation");
+                columns[0].checkbox(&mut self.ds9, "Deep Space Nine");
+                columns[0].checkbox(&mut self.voy, "Voyager");
+                columns[0].checkbox(&mut self.ent, "Enterprise");
+                columns[0].checkbox(&mut self.dis, "Discovery");
+                columns[0].checkbox(&mut self.pic, "Picard");
+                columns[0].checkbox(&mut self.ld, "Lower Decks");
+                columns[0].checkbox(&mut self.snw, "Strange New Worlds");
+                columns[0].checkbox(&mut self.prodigy, "Prodigy");
+                
+                
+
+                columns[1].horizontal(|horiz_ui| {
+                    horiz_ui.label("Movies:");
+                    horiz_ui.checkbox(&mut self.show_movies, "Show Movies");
+                });
+                if self.show_movies {
+                    columns[1].checkbox(&mut self.tmp, "The Motion Picture");
+                    columns[1].checkbox(&mut self.twok, "The Wrath of Khan");
+                    columns[1].checkbox(&mut self.tsfs, "The Search for Spock");
+                    columns[1].checkbox(&mut self.tvh, "The Voyage Home");
+                    columns[1].checkbox(&mut self.tff, "The Final Frontier");
+                    columns[1].checkbox(&mut self.tuc, "The Undiscovered Country");
+                
+                    columns[1].checkbox(&mut self.stg, "Generations");
+                    columns[1].checkbox(&mut self.stfc, "First Contact");
+                    columns[1].checkbox(&mut self.sti, "Insurrection");
+                    columns[1].checkbox(&mut self.stn, "Nemesis");
+                
+                    columns[1].checkbox(&mut self.stk, "Star Trek (2009)");
+                    columns[1].checkbox(&mut self.stid, "Star Trek: Into Darkness");
+                    columns[1].checkbox(&mut self.stb, "Star Trek: Beyond");
                 }
-                columns[0].horizontal(|horiz_ui| {
-                    if horiz_ui.button("Generate Episode").clicked() {
-                        self.episode = format!("Episode is: {}",5);
-                    }
-                    horiz_ui.label(&self.episode);
+
+                columns[2].horizontal(|horiz_ui| {
+                    horiz_ui.label("Presets");
+                    if horiz_ui.button("Deselect All").clicked() { self.deselect_all(); }
                 });
 
-                columns[1].label("Label yay");
-                if columns[1].button("BUdton").clicked() {
-                    columns[1].label("Budton");
+                if columns[2].button("All Shows").clicked() { self.all_shows(); }
+                if columns[2].button("All Movies").clicked() { self.all_movies(); }
+                if columns[2].button("Big 3 Shows").clicked() { self.big_3_shows(); }
+                if columns[2].button("On a Ship").clicked() { self.shows_on_ship(); }
+                if columns[2].button("Classic Shows").clicked() { self.classic(); }
+                if columns[2].button("New Shows").clicked() { self.new(); }
+                if columns[2].button("Classic Movies").clicked() { self.classic_movies(); }
+                if columns[2].button("TNG Movies").clicked() { self.tng_movies(); }
+                if columns[2].button("Kelvin Movies").clicked() { self.kelvin_movies(); }
+                if columns[2].button("A Fun Time :)").clicked() { self.a_fun_time(); }
+                if columns[2].button("Jimmy's Choice").clicked() { self.jimmys_recommended(); }
+            });
+            ui.horizontal(|horiz_ui| {
+                if horiz_ui.button("Generate Episode").clicked() {
+                    let seasons = Seasons::default();
+                    select_from_options(self, &seasons);
                 }
+                horiz_ui.label(&self.episode);
             });
         });
     }

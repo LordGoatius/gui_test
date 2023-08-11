@@ -1,6 +1,6 @@
 [package]
-name = "egui_test"
-version = "0.1.0"
+name = "star_trek_picker"
+version = "1.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -10,3 +10,4 @@ eframe = "0.22.0"
 egui = "0.22.0"
 env_logger = "0.10.0"
 image = "0.24.7"
+rand = "0.8.5"

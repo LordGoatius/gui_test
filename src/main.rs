@@ -5,6 +5,26 @@ use rand_gen::*;
 
 pub mod rand_gen;
 
+#[cfg(target_arch = "wasm32")]
+fn main() {
+    // Redirect `log` message to `console.log` and friends:
+    eframe::WebLogger::init(log::LevelFilter::Debug).ok();
+
+    let web_options = eframe::WebOptions::default();
+
+    wasm_bindgen_futures::spawn_local(async {
+        eframe::WebRunner::new()
+            .start(
+                "the_canvas_id", // hardcode it
+                web_options,
+                Box::new(|cc| Box::<Options>::default())
+                )
+            .await
+            .expect("failed to start eframe");
+    });
+}
+
+#[cfg(not(target_arch = "wasm32"))]
 fn main() -> Result<(), eframe::Error> {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
     let options = eframe::NativeOptions {
@@ -98,6 +118,7 @@ impl eframe::App for Options {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 fn load_icon() -> eframe::IconData {
 	let (icon_rgba, icon_width, icon_height) = {
 		let icon = include_bytes!("../startrek.png");

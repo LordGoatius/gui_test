@@ -1,6 +1,6 @@
 [package]
-name = "star_trek_picker"
-version = "1.0.0"
+name = "egui_test"
+version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -8,6 +8,10 @@ edition = "2021"
 [dependencies]
 eframe = "0.22.0"
 egui = "0.22.0"
+egui_web = "0.17.0"
 env_logger = "0.10.0"
 image = "0.24.7"
+log = "0.4.19"
 rand = "0.8.5"
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen-futures = "0.4"

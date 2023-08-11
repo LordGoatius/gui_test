@@ -1,3 +1,4 @@
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 use eframe::egui;
 use egui::{Visuals, Style};
 
@@ -44,14 +45,25 @@ impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("Jimmy's Star Trek Picker");
-            ui.checkbox(&mut self.button1, "Button 1");
-            ui.checkbox(&mut self.button2, "Button 2");
-            ui.checkbox(&mut self.button3, "Button 3");
-            ui.horizontal(|ui| {
-                if ui.button("Generate Episode").clicked() {
-                    self.episode = format!("Episode is: {}",5);
+            ui.hyperlink_to("My GitHub", "https://github.com/LordGoatius");
+            ui.columns(2, |columns| {
+                columns[0].checkbox(&mut self.button1, "Button 1");
+                columns[0].checkbox(&mut self.button2, "Button 2");
+                columns[0].checkbox(&mut self.button3, "Button 3");
+                if self.button3 {
+                    columns[0].checkbox(&mut self.button3, "Congrats, you found the hidden button");
                 }
-                ui.label(&self.episode);
+                columns[0].horizontal(|horiz_ui| {
+                    if horiz_ui.button("Generate Episode").clicked() {
+                        self.episode = format!("Episode is: {}",5);
+                    }
+                    horiz_ui.label(&self.episode);
+                });
+
+                columns[1].label("Label yay");
+                if columns[1].button("BUdton").clicked() {
+                    columns[1].label("Budton");
+                }
             });
         });
     }

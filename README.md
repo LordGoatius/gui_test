@@ -1,6 +1,9 @@
 # Jimmy Ostler's Star Trek Episode Picker
 
-### Running
+### Accessing
+You can access it online using the link here: [Star Trek Picker](https://lordgoatius.github.io/star_trek_picker/)
+
+### Running as Native Application
 The releases tab should have working binaries for Linux and Windows. Should it not, building from source will be necessary
 
 ### Building From Source

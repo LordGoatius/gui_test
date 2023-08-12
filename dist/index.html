@@ -8,11 +8,11 @@
     <title>Star Trek Picker</title>
 
     <!-- config for our rust wasm binary. go to https://trunkrs.dev/assets/#rust for more customization -->
-    <script type="module">import init from '/star_trek_picker/star_trek_picker-c82114d6c408bc73.js';init('/star_trek_picker/star_trek_picker-c82114d6c408bc73_bg.wasm');</script>
+    <script type="module">import init from '/star_trek_picker/dist/star_trek_picker-c82114d6c408bc73.js';init('/star_trek_picker/dist/star_trek_picker-c82114d6c408bc73_bg.wasm');</script>
     <!-- this is the base url relative to which other urls will be constructed. trunk will insert this from the public-url option -->
-    <base href="/star_trek_picker/">
+    <base href="/star_trek_picker/dist/">
 
-    <link rel="icon" href="/star_trek_picker/favicon-30b7f33d9746e050.ico">
+    <link rel="icon" href="/star_trek_picker/dist/favicon-30b7f33d9746e050.ico">
 
 
     
@@ -115,8 +115,8 @@
 
     </style>
 
-<link rel="preload" href="/star_trek_picker/star_trek_picker-c82114d6c408bc73_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/star_trek_picker/star_trek_picker-c82114d6c408bc73.js"></head>
+<link rel="preload" href="/star_trek_picker/dist/star_trek_picker-c82114d6c408bc73_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/star_trek_picker/dist/star_trek_picker-c82114d6c408bc73.js"></head>
 
 <body>
     <!-- The WASM code will resize the canvas dynamically -->

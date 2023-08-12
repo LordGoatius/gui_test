@@ -1,9 +1,9 @@
-var cacheName = 'egui-template-pwa';
+var cacheName = 'star_trek_picker';
 var filesToCache = [
   './',
   './index.html',
-  './egui_test.js',
-  './egui_test_bg.wasm',
+  './star_trek_picker.js',
+  './star_trek_picker_bg.wasm',
 ];
 
 /* Start the service worker and cache all of the app's content */

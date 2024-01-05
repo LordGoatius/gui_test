@@ -1,5 +1,9 @@
 # Jimmy Ostler's Star Trek Episode Picker
 
+### Why?
+
+This is a reacreation of my very first project for a CS class. Originally written in terrible spaghetti unreadable nonsense, thousands of lines of if else statements, and a mediocre UI, this new and improved version (accesible to the wed thanks to LLVM and Rust) was something I wrote because I wanted to revist an old project, for fun.
+
 ### Accessing
 You can access it online using the link here: [Star Trek Picker](https://lordgoatius.github.io/star_trek_picker/)
 

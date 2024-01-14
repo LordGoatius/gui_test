@@ -2,7 +2,7 @@
 
 ### Why?
 
-This is a reacreation of my very first project for a CS class. Originally written in terrible spaghetti unreadable nonsense, thousands of lines of if else statements, and a mediocre UI, this new and improved version (accesible to the web thanks to LLVM and Rust) was something I wrote because I wanted to revist an old project, for fun.
+This is a reacreation of my very first project for a CS class. Originally written in terrible spaghetti unreadable nonsense, thousands of lines of if else statements, and a mediocre UI, this new and improved version (accesible to the web thanks to LLVM and Rust) was something I wrote because I wanted to revist an old project, and see how my skills in organizing a codebase and structuring UI state have evolved.
 
 ### Accessing
 You can access it online using the link here: [Star Trek Picker](https://lordgoatius.github.io/star_trek_picker/)
